@@ -1,0 +1,40 @@
+{
+  "name": "my-editor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --hot --inline --progress --colors --port 1122"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rongchanghai/my-editor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rongchanghai/my-editor/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.1",
+    "file-loader": "^5.0.2",
+    "monaco-editor-webpack-plugin": "^1.8.2",
+    "style-loader": "^1.1.2",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.19.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-monaco-editor": "latest"
+  },
+  "homepage": "https://github.com/rongchanghai/my-editor#readme"
+}
