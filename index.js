@@ -11,6 +11,7 @@ class CodeEditor extends React.Component {
     this.state = {
       code: ""
     };
+    this.language = 'myl'
   }
 
   onChange = newValue => {
@@ -18,6 +19,7 @@ class CodeEditor extends React.Component {
   };
 
   editorDidMount = (editor, monaco) => {
+    console.log('👹👹',monaco);
     // eslint-disable-next-line no-console
     // console.log("editorDidMount", editor, editor.getValue(), editor.getModel());
     this.editor = editor;
@@ -40,11 +42,11 @@ class CodeEditor extends React.Component {
       }
     ];
     // 注册自定义语言
-    monaco.languages.register({ id: "mySpecialLanguage" });
+    monaco.languages.register({ id: this.language });
     // 为该自定义语言基本的Token
-    monaco.languages.setMonarchTokensProvider("mySpecialLanguage", vLang);
+    monaco.languages.setMonarchTokensProvider(this.language, vLang);
     // 为该语言注册一个语言提示器--联想
-    monaco.languages.registerCompletionItemProvider("mySpecialLanguage", {
+    monaco.languages.registerCompletionItemProvider(this.language, {
       provideCompletionItems: () => {
         return { suggestions: vCompletion.concat(suggestions) };
       }
@@ -66,7 +68,7 @@ class CodeEditor extends React.Component {
         <MonacoEditor
           height="400"
           width='600'
-          language="mySpecialLanguage"
+          language={this.language}
           value={code}
           options={options}
           onChange={this.onChange}

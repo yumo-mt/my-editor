@@ -30,62 +30,68 @@ export default [
       "从ini类型的数据中，根据section和key，获取key对应的值,，作为整数返回"
   },
   {
-    label: "getIniDouble",
-    kind: monaco.languages.CompletionItemKind.Function,
-    insertText: "getIniDouble(${1:sec}, ${2: key})",
-    insertTextRules:
-      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-    documentation:
-      "从ini类型的数据中，根据section和key，获取key对应的值，作为浮点数返回"
+    label: 'testing',
+    kind: monaco.languages.CompletionItemKind.Keyword,
+    insertText: 'testing(${1:condition})',
+    insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
   },
-  {
-    label: "isEmpty",
-    kind: monaco.languages.CompletionItemKind.Function,
-    insertText: "isEmpty(${1:str})",
-    insertTextRules:
-      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-    documentation: "判断str是否为空"
-  },
-  {
-    label: "isEqual",
-    kind: monaco.languages.CompletionItemKind.Function,
-    insertText: "isEqual(${1:str1}, ${2: str2})",
-    insertTextRules:
-      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-    documentation: "判断str是否为空"
-  },
-  {
-    label: "isContain",
-    kind: monaco.languages.CompletionItemKind.Function,
-    insertText: "isContain(${1:str})",
-    insertTextRules:
-      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-    documentation: "判断数据项中是否包含str"
-  },
-  {
-    label: "getJsonInt",
-    kind: monaco.languages.CompletionItemKind.Function,
-    insertText: "getJsonInt(${1:path})",
-    insertTextRules:
-      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-    documentation: "根据path获取JSON数据中作为整数返回的值"
-  },
-  {
-    label: "getJsonDouble",
-    kind: monaco.languages.CompletionItemKind.Function,
-    insertText: "getJsonDouble(${1:path})",
-    insertTextRules:
-      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-    documentation: "根据path获取JSON数据中作为整数返回的值"
-  },
-  {
-    label: "getJsonSize",
-    kind: monaco.languages.CompletionItemKind.Function,
-    insertText: "getJsonSize(${1:path})",
-    insertTextRules:
-      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-    documentation: "根据path获取JSON数据中作为数组类型的数据的长度"
-  },
+  // {
+  //   label: "getIniDouble",
+  //   kind: monaco.languages.CompletionItemKind.Function,
+  //   insertText: "getIniDouble(${1:sec}, ${2: key})",
+  //   insertTextRules:
+  //     monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+  //   documentation:
+  //     "从ini类型的数据中，根据section和key，获取key对应的值，作为浮点数返回"
+  // },
+  // {
+  //   label: "isEmpty",
+  //   kind: monaco.languages.CompletionItemKind.Function,
+  //   insertText: "isEmpty(${1:str})",
+  //   insertTextRules:
+  //     monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+  //   documentation: "判断str是否为空"
+  // },
+  // {
+  //   label: "isEqual",
+  //   kind: monaco.languages.CompletionItemKind.Function,
+  //   insertText: "isEqual(${1:str1}, ${2: str2})",
+  //   insertTextRules:
+  //     monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+  //   documentation: "判断str是否为空"
+  // },
+  // {
+  //   label: "isContain",
+  //   kind: monaco.languages.CompletionItemKind.Function,
+  //   insertText: "isContain(${1:str})",
+  //   insertTextRules:
+  //     monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+  //   documentation: "判断数据项中是否包含str"
+  // },
+  // {
+  //   label: "getJsonInt",
+  //   kind: monaco.languages.CompletionItemKind.Function,
+  //   insertText: "getJsonInt(${1:path})",
+  //   insertTextRules:
+  //     monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+  //   documentation: "根据path获取JSON数据中作为整数返回的值"
+  // },
+  // {
+  //   label: "getJsonDouble",
+  //   kind: monaco.languages.CompletionItemKind.Function,
+  //   insertText: "getJsonDouble(${1:path})",
+  //   insertTextRules:
+  //     monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+  //   documentation: "根据path获取JSON数据中作为整数返回的值"
+  // },
+  // {
+  //   label: "getJsonSize",
+  //   kind: monaco.languages.CompletionItemKind.Function,
+  //   insertText: "getJsonSize(${1:path})",
+  //   insertTextRules:
+  //     monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+  //   documentation: "根据path获取JSON数据中作为数组类型的数据的长度"
+  // },
   /**   * 语句   */
 
   {
