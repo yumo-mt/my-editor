@@ -1,168 +1,168 @@
-// Create your own language definition here
-// You can safely look at other samples without losing modifications.
-// Modifications are not saved on browser refresh/close though -- copy often!
-export default {
-  // Set defaultToken to invalid to see what you do not tokenize yet
-  // defaultToken: 'invalid',
+// Difficulty: "Moderate"
+// This is the JavaScript tokenizer that is actually used to highlight
+// all code in the syntax definition editor and the documentation!
+//
+// This definition takes special care to highlight regular
+// expressions correctly, which is convenient when writing
+// syntax highlighter specifications.
+export default{
+	// Set defaultToken to invalid to see what you do not tokenize yet
+	defaultToken: 'invalid',
+	tokenPostfix: '.js',
 
-  keywords: [
-    "abstract",
-    "continue",
-    "for",
-    "new",
-    "switch",
-    "assert",
-    "goto",
-    "do",
-    "if",
-    "private",
-    "this",
-    "break",
-    "protected",
-    "throw",
-    "else",
-    "public",
-    "enum",
-    "return",
-    "catch",
-    "try",
-    "interface",
-    "static",
-    "class",
-    "finally",
-    "const",
-    "super",
-    "while",
-    "true",
-    "false"
-  ],
+	keywords: [
+		'break', 'case', 'catch', 'class', 'continue', 'const',
+		'constructor', 'debugger', 'default', 'delete', 'do', 'else',
+		'export', 'extends', 'false', 'finally', 'for', 'from', 'function',
+		'get', 'if', 'import', 'in', 'instanceof', 'let', 'new', 'null',
+		'return', 'set', 'super', 'switch', 'symbol', 'this', 'throw', 'true',
+		'try', 'typeof', 'undefined', 'var', 'void', 'while', 'with', 'yield',
+		'async', 'await', 'of'
+	],
 
-  typeKeywords: [
-    "boolean",
-    "double",
-    "byte",
-    "int",
-    "short",
-    "char",
-    "void",
-    "long",
-    "float"
-  ],
+	typeKeywords: [
+		'any', 'boolean', 'number', 'object', 'string', 'undefined'
+	],
 
-  operators: [
-    "=",
-    ">",
-    "<",
-    "!",
-    "~",
-    "?",
-    ":",
-    "==",
-    "<=",
-    ">=",
-    "!=",
-    "&&",
-    "||",
-    "++",
-    "--",
-    "+",
-    "-",
-    "*",
-    "/",
-    "&",
-    "|",
-    "^",
-    "%",
-    "<<",
-    ">>",
-    ">>>",
-    "+=",
-    "-=",
-    "*=",
-    "/=",
-    "&=",
-    "|=",
-    "^=",
-    "%=",
-    "<<=",
-    ">>=",
-    ">>>="
-  ],
+	operators: [
+		'<=', '>=', '==', '!=', '===', '!==', '=>', '+', '-', '**',
+		'*', '/', '%', '++', '--', '<<', '</', '>>', '>>>', '&',
+		'|', '^', '!', '~', '&&', '||', '?', ':', '=', '+=', '-=',
+		'*=', '**=', '/=', '%=', '<<=', '>>=', '>>>=', '&=', '|=',
+		'^=', '@',
+	],
 
-  // we include these common regular expressions
-  symbols: /[=><!~?:&|+\-*\/\^%]+/,
+	// we include these common regular expressions
+	symbols: /[=><!~?:&|+\-*\/\^%]+/,
+	escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
+	digits: /\d+(_+\d+)*/,
+	octaldigits: /[0-7]+(_+[0-7]+)*/,
+	binarydigits: /[0-1]+(_+[0-1]+)*/,
+	hexdigits: /[[0-9a-fA-F]+(_+[0-9a-fA-F]+)*/,
 
-  // C# style strings
-  escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
+	regexpctl: /[(){}\[\]\$\^|\-*+?\.]/,
+	regexpesc: /\\(?:[bBdDfnrstvwWn0\\\/]|@regexpctl|c[A-Z]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})/,
 
-  // The main tokenizer for our languages
-  tokenizer: {
-    root: [
-      // identifiers and keywords
-      [
-        /[a-z_$][\w$]*/,
-        {
-          cases: {
-            "@typeKeywords": "keyword",
-            "@keywords": "keyword",
-            "@default": "identifier"
-          }
-        }
-      ],
-      [/[A-Z][\w\$]*/, "type.identifier"], // to show class names nicely
+	// The main tokenizer for our languages
+	tokenizer: {
+		root: [
+			[/[{}]/, 'delimiter.bracket'],
+			{ include: 'common' }
+		],
 
-      // whitespace
-      { include: "@whitespace" },
+		common: [
+			// identifiers and keywords
+			[/[a-z_$][\w$]*/, {
+				cases: {
+					'@typeKeywords': 'keyword',
+					'@keywords': 'keyword',
+					'@default': 'identifier'
+				}
+			}],
+			[/[A-Z][\w\$]*/, 'type.identifier'],  // to show class names nicely
+			// [/[A-Z][\w\$]*/, 'identifier'],
 
-      // delimiters and operators
-      [/[{}()\[\]]/, "@brackets"],
-      [/[<>](?!@symbols)/, "@brackets"],
-      [/@symbols/, { cases: { "@operators": "operator", "@default": "" } }],
+			// whitespace
+			{ include: '@whitespace' },
 
-      // @ annotations.
-      // As an example, we emit a debugging log message on these tokens.
-      // Note: message are supressed during the first load -- change some lines to see them.
-      [
-        /@\s*[a-zA-Z_\$][\w\$]*/,
-        { token: "annotation", log: "annotation token: $0" }
-      ],
+			// regular expression: ensure it is terminated before beginning (otherwise it is an opeator)
+			[/\/(?=([^\\\/]|\\.)+\/([gimsuy]*)(\s*)(\.|;|\/|,|\)|\]|\}|$))/, { token: 'regexp', bracket: '@open', next: '@regexp' }],
 
-      // numbers
-      [/\d*\.\d+([eE][\-+]?\d+)?/, "number.float"],
-      [/0[xX][0-9a-fA-F]+/, "number.hex"],
-      [/\d+/, "number"],
+			// delimiters and operators
+			[/[()\[\]]/, '@brackets'],
+			[/[<>](?!@symbols)/, '@brackets'],
+			[/@symbols/, {
+				cases: {
+					'@operators': 'delimiter',
+					'@default': ''
+				}
+			}],
 
-      // delimiter: after number because of .\d floats
-      [/[;,.]/, "delimiter"],
+			// numbers
+			[/(@digits)[eE]([\-+]?(@digits))?/, 'number.float'],
+			[/(@digits)\.(@digits)([eE][\-+]?(@digits))?/, 'number.float'],
+			[/0[xX](@hexdigits)/, 'number.hex'],
+			[/0[oO]?(@octaldigits)/, 'number.octal'],
+			[/0[bB](@binarydigits)/, 'number.binary'],
+			[/(@digits)/, 'number'],
 
-      // strings
-      [/"([^"\\]|\\.)*$/, "string.invalid"], // non-teminated string
-      [/"/, { token: "string.quote", bracket: "@open", next: "@string" }],
+			// delimiter: after number because of .\d floats
+			[/[;,.]/, 'delimiter'],
 
-      // characters
-      [/'[^\\']'/, "string"],
-      [/(')(@escapes)(')/, ["string", "string.escape", "string"]],
-      [/'/, "string.invalid"]
-    ],
+			// strings
+			[/"([^"\\]|\\.)*$/, 'string.invalid'],  // non-teminated string
+			[/'([^'\\]|\\.)*$/, 'string.invalid'],  // non-teminated string
+			[/"/, 'string', '@string_double'],
+			[/'/, 'string', '@string_single'],
+			[/`/, 'string', '@string_backtick'],
+		],
 
-    comment: [
-      [/[^\/*]+/, "comment"],
-      [/\/\*/, "comment", "@push"], // nested comment
-      ["\\*/", "comment", "@pop"],
-      [/[\/*]/, "comment"]
-    ],
+		whitespace: [
+			[/[ \t\r\n]+/, ''],
+			[/\/\*\*(?!\/)/, 'comment.doc', '@jsdoc'],
+			[/\/\*/, 'comment', '@comment'],
+			[/\/\/.*$/, 'comment'],
+		],
 
-    string: [
-      [/[^\\"]+/, "string"],
-      [/@escapes/, "string.escape"],
-      [/\\./, "string.escape.invalid"],
-      [/"/, { token: "string.quote", bracket: "@close", next: "@pop" }]
-    ],
+		comment: [
+			[/[^\/*]+/, 'comment'],
+			[/\*\//, 'comment', '@pop'],
+			[/[\/*]/, 'comment']
+		],
 
-    whitespace: [
-      [/[ \t\r\n]+/, "white"],
-      [/\/\*/, "comment", "@comment"],
-      [/\/\/.*$/, "comment"]
-    ]
-  }
+		jsdoc: [
+			[/[^\/*]+/, 'comment.doc'],
+			[/\*\//, 'comment.doc', '@pop'],
+			[/[\/*]/, 'comment.doc']
+		],
+
+		// We match regular expression quite precisely
+		regexp: [
+			[/(\{)(\d+(?:,\d*)?)(\})/, ['regexp.escape.control', 'regexp.escape.control', 'regexp.escape.control']],
+			[/(\[)(\^?)(?=(?:[^\]\\\/]|\\.)+)/, ['regexp.escape.control', { token: 'regexp.escape.control', next: '@regexrange' }]],
+			[/(\()(\?:|\?=|\?!)/, ['regexp.escape.control', 'regexp.escape.control']],
+			[/[()]/, 'regexp.escape.control'],
+			[/@regexpctl/, 'regexp.escape.control'],
+			[/[^\\\/]/, 'regexp'],
+			[/@regexpesc/, 'regexp.escape'],
+			[/\\\./, 'regexp.invalid'],
+			[/(\/)([gimsuy]*)/, [{ token: 'regexp', bracket: '@close', next: '@pop' }, 'keyword.other']],
+		],
+
+		regexrange: [
+			[/-/, 'regexp.escape.control'],
+			[/\^/, 'regexp.invalid'],
+			[/@regexpesc/, 'regexp.escape'],
+			[/[^\]]/, 'regexp'],
+			[/\]/, { token: 'regexp.escape.control', next: '@pop', bracket: '@close' }],
+		],
+
+		string_double: [
+			[/[^\\"]+/, 'string'],
+			[/@escapes/, 'string.escape'],
+			[/\\./, 'string.escape.invalid'],
+			[/"/, 'string', '@pop']
+		],
+
+		string_single: [
+			[/[^\\']+/, 'string'],
+			[/@escapes/, 'string.escape'],
+			[/\\./, 'string.escape.invalid'],
+			[/'/, 'string', '@pop']
+		],
+
+		string_backtick: [
+			[/\$\{/, { token: 'delimiter.bracket', next: '@bracketCounting' }],
+			[/[^\\`$]+/, 'string'],
+			[/@escapes/, 'string.escape'],
+			[/\\./, 'string.escape.invalid'],
+			[/`/, 'string', '@pop']
+		],
+
+		bracketCounting: [
+			[/\{/, 'delimiter.bracket', '@bracketCounting'],
+			[/\}/, 'delimiter.bracket', '@pop'],
+			{ include: 'common' }
+		],
+	},
 };
