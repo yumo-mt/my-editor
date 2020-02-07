@@ -25,11 +25,6 @@ export default [
     documentation: '判断str是否为空',
   },
   {
-    label: '测试3',
-    insertText: '测试3',
-    detail: '提示的文字',
-  },
-  {
     label: 'BuyGoods()', //显示的提示名称
     kind: 1, //图标显示类型
     insertText: 'BuyGoods(CSTradeScriptContext context, StockPrice price)',
@@ -56,7 +51,7 @@ export default [
     label: 'sum',
     kind: monaco.languages.CompletionItemKind.Function,
     insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-    insertText: 'sum(${1:num1})',
+    insertText: 'sum(${1:})',
     detail: '计算所有参数数值的和',
   },
   {
